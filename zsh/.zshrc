@@ -2,7 +2,6 @@
 #  ~/.zshrc — Main shell config (HyDE managed + user additions)
 # ═══════════════════════════════════════════════════════════
 
-
 # ──────────────────────────────────────────────────────────
 #  PATH additions
 # ──────────────────────────────────────────────────────────
@@ -89,10 +88,3 @@ fi
 
 # Remove stack size limit (needed for cp on large files)
 ulimit -s unlimited
-
-
-# ──────────────────────────────────────────────────────────
-#  Load user config (aliases, plugins, functions)
-# ──────────────────────────────────────────────────────────
-
-[[ -f ~/.user.zsh ]] && source ~/.user.zsh

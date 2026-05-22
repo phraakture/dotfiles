@@ -63,7 +63,8 @@
         "/home/acegikmo/.local/share/waybar/modules/group-volumecontrol.jsonc",
         "/home/acegikmo/.local/share/waybar/modules/mpd.jsonc",
         "/home/acegikmo/.local/share/waybar/modules/group-hide-tray.jsonc",
-        "/home/acegikmo/.local/share/waybar/modules/temperature.jsonc"
+        "/home/acegikmo/.local/share/waybar/modules/temperature.jsonc",
+        "/home/acegikmo/.local/share/waybar/modules/custom-app-launcher.jsonc"
     ],
     "image#wallpaper": {
         "size": 30,

@@ -30,7 +30,7 @@ alias ss='source ~/.zshrc'
 #  Aliases — Git
 # ──────────────────────────────────────────────────────────
 
-alias gc='git commit'
+alias gc='git commit -s -m'
 alias gch='git checkout'
 alias gp='git push'
 
@@ -80,3 +80,6 @@ alias gocp='cd ~/cp'
 log2() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> ./log.md
 }
+
+# Deduplicate PATH entries
+typeset -U PATH path
