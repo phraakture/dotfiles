@@ -82,3 +82,38 @@ lspconfig.html.setup {
   capabilities = nvlsp.capabilities,
   filetypes = { "html", "htmldjango", "templ" },
 }
+
+-- Python LSP (basedpyright) for AI/RAG development
+lspconfig.basedpyright.setup {
+  on_attach = function(client, bufnr)
+    nvlsp.on_attach(client, bufnr)
+
+    vim.diagnostic.config { virtual_text = false }
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function()
+        if vim.g.format_on_save then
+          vim.lsp.buf.format {
+            bufnr = bufnr,
+            timeout_ms = 1000,
+          }
+        end
+      end,
+    })
+  end,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  filetypes = { "python" },
+  root_dir = lspconfig.util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git"),
+  settings = {
+    basedpyright = {
+      analysis = {
+        typeCheckingMode = "recommended",
+        autoImportCompletions = true,
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+}

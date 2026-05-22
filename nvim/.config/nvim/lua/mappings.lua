@@ -187,3 +187,22 @@ map("n", "<leader>td", function()
     end
   end
 end, { desc = "debug" })
+
+-- PYTHON / AI DEVELOPMENT
+-- Neotest: run tests
+map("n", "<leader>tr", function()
+  require("neotest").run.run()
+end, { desc = "Python: run nearest test" })
+map("n", "<leader>tF", function()
+  require("neotest").run.run(vim.fn.expand "%")
+end, { desc = "Python: run test file" })
+map("n", "<leader>ts", function()
+  require("neotest").summary.toggle()
+end, { desc = "Python: toggle test summary" })
+map("n", "<leader>to", function()
+  require("neotest").output.open()
+end, { desc = "Python: show test output" })
+-- Debug test via DAP
+map("n", "<leader>tD", function()
+  require("neotest").run.run { strategy = "dap" }
+end, { desc = "Python: debug nearest test" })

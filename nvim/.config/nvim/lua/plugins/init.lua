@@ -190,6 +190,37 @@ return {
     "prisma/vim-prisma",
     ft = "prisma",
   },
+  -- Python: LSP, debugger, test runner
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    config = function()
+      require("dap-python").setup("python")
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    ft = "python",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+    },
+    config = function()
+      require("neotest").setup {
+        adapters = {
+          require "neotest-python" {
+            runner = "pytest",
+          },
+        },
+      }
+    end,
+  },
+  {
+    "nvim-neotest/neotest-python",
+    ft = "python",
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
@@ -200,6 +231,7 @@ return {
         "html", "css",
         "javascript", "typescript", "tsx",
         "c", "cpp", "rust", "prisma",
+        "python",
       },
       highlight = { enable = true },
       indent = { enable = true },
