@@ -10,8 +10,11 @@
 node_modules/
 
 # nvim
-nvim/.config/nvim/plugin
-nvim/.config/nvim/lazy
+nvim/plugin
+nvim/lazy
+
+# hypr shader cache
+hypr/shaders/.compiled.cache.glsl
 
 # general cache
 *.cache
