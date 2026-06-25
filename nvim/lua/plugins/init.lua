@@ -118,25 +118,49 @@ return {
       local conf = require "nvchad.configs.telescope"
 
       conf.defaults.file_ignore_patterns = {
+        -- version control
         "^%.git/",
         "%.git/",
+
+        -- dependency / build dirs
         "node_modules/",
         "%.next/",
         "dist/",
         "build/",
         "target/",
         "%.cargo/",
+
+        -- python virtual envs & caches
+        "%.venv/",
+        ".venv/",
+        "__pycache__/",
+        "%.pytest_cache/",
+        "%.mypy_cache/",
+        "%.ruff_cache/",
+        "%.tox/",
+        "%.egg%-info/",
+        "%.py[cod]",
+
+        -- lockfiles
         "package%-lock%.json",
         "yarn%.lock",
         "pnpm%-lock%.yaml",
         "bun%.lock",
         "bun%.lockb",
+
+        -- misc noisy dotfiles
+        "^%.",
+        "/%.",
+        ".DS_Store",
+        "%.swp",
+        "%.swo",
+        ".coverage",
       }
 
       conf.pickers = {
         find_files = {
-          hidden = true,
-          no_ignore = true,
+          hidden = false,
+          no_ignore = false,
         },
       }
 

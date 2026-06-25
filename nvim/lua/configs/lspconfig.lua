@@ -109,7 +109,7 @@ lspconfig.basedpyright.setup {
   settings = {
     basedpyright = {
       analysis = {
-        typeCheckingMode = "recommended",
+        typeCheckingMode = "basic",
         autoImportCompletions = true,
         diagnosticMode = "workspace",
         useLibraryCodeForTypes = true,
