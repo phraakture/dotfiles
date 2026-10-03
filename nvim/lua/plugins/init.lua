@@ -261,6 +261,21 @@ return {
       indent = { enable = true, disable = { "python" } },
     },
   },
+  -- Markdown: in-buffer rendering (uses nvim's bundled markdown parsers)
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      pcall(dofile, vim.g.base46_cache .. "render-markdown")
+      require("render-markdown").setup {
+        render_modes = { "n", "c", "t" }, -- show raw markdown in insert mode
+        anti_conceal = { enabled = true }, -- show raw text on the cursor line
+        code = { sign = false, width = "block", right_pad = 1 },
+        heading = { sign = false },
+      }
+    end,
+  },
   {
     "folke/which-key.nvim",
     enabled = false,

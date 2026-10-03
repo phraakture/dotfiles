@@ -78,3 +78,32 @@ label:hover, button:hover {
     color: #00ffb4;
     transition: color 0.2s ease;
 }
+
+/* ——— Slim all padding (50% reduction, upgrade-safe overrides for defaults.css/pill.css) ——— */
+window#waybar.top #pill,
+window#waybar.bottom #pill,
+window#waybar.top #pill-left,
+window#waybar.top #pill-right,
+window#waybar.top #pill-center,
+window#waybar.bottom #pill-left,
+window#waybar.bottom #pill-right {
+  padding: 0 0.5em;        /* was 1em defaults.css:219 */
+  margin: 0.15em 0.5em;     /* was 0.3em 1em pill.css:21 */
+}
+window#waybar.top .modules-left,
+window#waybar.top .modules-center,
+window#waybar.top .modules-right,
+window#waybar.bottom .modules-left,
+window#waybar.bottom .modules-center,
+window#waybar.bottom .modules-right {
+  padding: 0 0.15em;
+  margin: 0 0.15em;
+}
+window#waybar label.module {
+  padding: 0 0.15em;
+  margin: 0 0.1em;
+}
+#workspaces button { padding: 0 6px; margin: 1px 1px; }
+#workspaces button.active { padding: 0 8px; margin: 1px 1px; }
+window#waybar button { margin: 0.2em 0.08em; }
+#tray { padding: 0 4px; }

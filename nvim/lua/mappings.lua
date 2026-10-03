@@ -188,6 +188,9 @@ map("n", "<leader>td", function()
   end
 end, { desc = "debug" })
 
+-- MARKDOWN
+map("n", "<leader>mp", "<cmd>RenderMarkdown toggle<CR>", { desc = "Markdown: toggle render" })
+
 -- PYTHON / AI DEVELOPMENT
 -- Neotest: run tests
 map("n", "<leader>tr", function()

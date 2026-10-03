@@ -9,6 +9,7 @@ local M = {}
 
 M.base46 = {
   theme = "gruvbox",
+  integrations = { "render-markdown" },
 
   hl_override = {
     Comment = { italic = false },
