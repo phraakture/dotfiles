@@ -90,4 +90,11 @@ fi
 ulimit -s unlimited
 
 # kimi-code
-export PATH="/home/acegikmo/.kimi-code/bin:$PATH"
+export PATH="$HOME/.kimi-code/bin:$PATH"
+
+# agentic-swe-kit wiki root
+export AGENTIC_SWE_WIKI_ROOT="$HOME/.agentic-swe-kit/wiki"
+export GENESIS_KIT_ROOT="$HOME/projects/genesis-kit"
+
+# Machine-local secrets (API keys etc.) — never committed
+[[ -f ~/.config/zsh/secrets.zsh ]] && source ~/.config/zsh/secrets.zsh

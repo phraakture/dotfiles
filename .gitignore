@@ -1,10 +1,21 @@
-# cache / junk
+# secrets — never commit
+.env
+.env.*
+*secrets*
+*.local
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# cache / junk / state
 *.log
 *.cache
 .cache/
-
-# secrets
-.env
+__pycache__/
+.zcompdump*
+.zsh_history
+*.bak
 
 # node
 node_modules/
@@ -16,6 +27,6 @@ nvim/lazy
 # hypr shader cache
 hypr/shaders/.compiled.cache.glsl
 
-# general cache
-*.cache
-.cache/
+# waybar auto-backups (contain hostname)
+waybar/layouts/backup/
+

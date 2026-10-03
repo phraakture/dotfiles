@@ -66,7 +66,6 @@ alias vm='vi src/main.rs'
 #  Aliases — Misc
 # ──────────────────────────────────────────────────────────
 
-alias db='echo DATABASE_URL=postgresql://postgres:cupcake@localhost:5432/db'
 alias xtree="tree -L 3 -I '.*|node_modules'"
 alias comp='g++ -std=c++17 -O2 -Wall main.cpp -o a'
 alias gocp='cd ~/cp'
@@ -75,6 +74,9 @@ alias vpython='.venv/bin/python'
 alias killdiscord='pkill -9 -f Discord'
 alias note='obsidian'
 alias op='opencode'
+alias cl='claude'
+alias rain='nohup mpv --loop bg.mp3 >/dev/null 2>&1 &'
+alias tars='nohup mpv --loop tars.mp3 >/dev/null 2>&1 &'
 
 
 # ──────────────────────────────────────────────────────────
