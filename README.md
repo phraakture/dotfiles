@@ -1,41 +1,66 @@
-# Dotfiles
+# dotfiles
 
-Arch Linux + Hyprland (HyDE) setup. Flat structure: each top-level directory maps to `~/.config/<name>`; `zsh/` maps into `$HOME`.
+Arch Linux · Hyprland via [HyDE](https://github.com/HyDE-Project/HyDE) · kitty · zsh · Neovim (NvChad)
 
-## Stack
-
-| Component | Config |
-|---|---|
-| WM | [hypr](./hypr) |
-| Bar | [waybar](./waybar) |
-| Terminal | [kitty](./kitty) |
-| Editor | [nvim](./nvim) |
-| Shell | [zsh](./zsh) |
-| Prompt | [starship](./starship), [p10k](./zsh/.p10k.zsh) |
-
-## Install
+A small, flat repo: every top-level directory is symlinked to `~/.config/<name>`, and `zsh/` is symlinked into `$HOME`. One script wires it all up and can be re-run safely at any time.
 
 ```sh
 git clone https://github.com/phraakture/dotfiles.git ~/dotfiles
 ~/dotfiles/install.sh
 ```
 
-`install.sh` is idempotent. It symlinks every entry in the table above, moves any pre-existing non-symlink target to `<target>.bak`, and creates empty secrets files (see below) if they do not exist yet.
+## What's inside
+
+| Dir | Goes to | Notes |
+|---|---|---|
+| `hypr/` | `~/.config/hypr` | `hyprland.lua` entry point that chains into HyDE. Overrides in `hyde.conf` (Bibata-Modern-Ice cursor), `monitors.conf`, `hypridle`, `hyprsunset`, a gaming workflow, and a set of `hyprlock` themes. |
+| `waybar/` | `~/.config/waybar` | HyDE-style layout with `user-style.css` on top and a swaync power menu. |
+| `kitty/` | `~/.config/kitty` | Powerline tab bar at the bottom; colours come from HyDE's `theme.conf`. |
+| `nvim/` | `~/.config/nvim` | NvChad v2.5 base, gruvbox. Rust (rustaceanvim, crates), Python (dap, neotest), C++, Prisma, treesitter, telescope, conform, render-markdown, which-key. Includes a custom Python hanging-indent module. |
+| `starship/` | `~/.config/starship` | Minimal prompt: path, git, time, and language modules on demand. |
+| `zsh/` | `$HOME` and `~/.config/zsh` | See below. |
+
+### zsh
+
+Startup order on this machine:
+
+1. `~/.zshenv` → `zsh/.zshenv` sets `ZDOTDIR=~/.config/zsh`.
+2. HyDE's own files in `~/.config/zsh` load (`conf.d/hyde/*`, plugins, prompt). Those are **not** tracked here, HyDE owns them.
+3. `~/.config/zsh/.zshrc` → `zsh/zdotdir/.zshrc` applies the HyDE "user" layer: git aliases, pnpm, nvm, opencode, bun.
+4. It sources `~/.zshrc` → `zsh/.zshrc`, the main config: PATH for cargo, foundry, bun, go, solana, pyenv, wasmer, nvm, and env vars like `EDITOR`.
+5. HyDE sources `~/.user.zsh` → `zsh/.user.zsh`: 27 aliases (navigation, git, dev runners, cargo, vim shortcuts), helper functions, and the `zsh-autopair` plugin.
+6. `zsh/zdotdir/conf.d/binds.zsh` fixes word-wise Ctrl+arrow and Delete in kitty.
+7. The last line of `zsh/.zshrc` sources `~/.config/zsh/secrets.zsh` if it exists.
+
+Prompt: HyDE picks Starship when installed and falls back to `zsh/.p10k.zsh`.
 
 ## Secrets
 
-Nothing sensitive lives in this repo. Git config is not part of this repo at all (`~/.config/git/` is local). One untracked, mode-600 file holds shell secrets:
+Nothing sensitive is in this repo, and the layout is built so it stays that way.
 
-| File | Loaded by | Holds |
-|---|---|---|
-| `~/.config/zsh/secrets.zsh` | last line of `zsh/.zshrc` | API keys, local DB URLs, anything with a token |
+- Shell secrets (API keys, tokens, local DB URLs) live in `~/.config/zsh/secrets.zsh`, mode 600, created empty by `install.sh`. It is never tracked.
+- Git identity and send-email settings are deliberately **not** here. `~/.config/git/` is a plain local directory.
+- `.gitignore` blocks `*secrets*`, `*.local`, `.env*`, `*.pem`, `*.key`, shell history and compdump files as a safety net.
 
-`.gitignore` also blocks `*secrets*`, `*.local`, `.env*`, `*.pem`, `*.key` as a safety net.
+## install.sh
 
-## Layout notes
+Idempotent. For each entry it:
 
-- `zsh/.zshenv` sets `ZDOTDIR=~/.config/zsh`. That directory is HyDE-managed, so only the user-owned files in it are tracked, under `zsh/zdotdir/` (the user `.zshrc` and `conf.d/binds.zsh`). HyDE's own `conf.d/hyde/`, `functions/`, `completions/` are not.
-- `zsh/.zshrc` is the main shell config (PATH, toolchains, aliases via `zsh/.user.zsh`).
-- Starship reads `starship/starship.toml` because HyDE exports `STARSHIP_CONFIG` to that path.
-- `hypr/hyprland.lua` is the entry point; it chains into HyDE's `hyde.lua`.
+- creates the parent directory if needed,
+- moves any existing non-symlink target to `<target>.bak`,
+- replaces a wrong symlink, leaves a correct one alone,
+- scaffolds `~/.config/zsh/secrets.zsh` if missing.
+
+Run it again after pulling and it only prints `ok` lines.
+
+## Requirements
+
+- HyDE installed (Hyprland, waybar, kitty, zsh bits, Starship, wallbash theming). This repo is the override layer on top of it, not a standalone rice.
+- `zsh-autopair` cloned to `~/.zsh/zsh-autopair`.
+- Toolchains referenced from `zsh/.zshrc` are optional; missing ones are skipped or just add a dead PATH entry.
+
+## Notes
+
 - `hypr/shaders/.compiled.cache.glsl` is generated by `shaders.sh` and ignored.
+- `nvim/lazy-lock.json` is tracked on purpose so plugin versions are reproducible.
+- `~/.config/zsh/.p10k.zsh` (HyDE's copy) is identical to `zsh/.p10k.zsh`; only the home-level one is tracked.
